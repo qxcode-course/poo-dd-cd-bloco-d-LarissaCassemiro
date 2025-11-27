@@ -1,0 +1,19 @@
+{
+    "patches": [
+        {
+            "label": "2025-11-26_23-39-45",
+            "content": "@@ -959,52 +959,8 @@\n er %0A\n-        self.fone = dict%5Bstr, Contato%5D = %7B%7D%0A\n     \n@@ -1320,20 +1320,29 @@\n oin(\n-%5B\n+f%22%7B\n str(\n-x)for x\n+f)%7D%5D%22 for i, f\n  in \n@@ -1360,18 +1360,14 @@\n elf.\n-contato\n+fone\n s)\n-%5D\n )%0A  \n@@ -1391,176 +1391,22 @@\n elf.\n-id%7D:%7Bself.number%7D%22%0A    %0A%0Aclass Contato:%0A    def __init__(self):%0A        self.favoritos: bool = False %0A        self.fones: dict%5Bstr, Fone%5D = %7B%7D%0A        self.nome: str %0A%0A\n+name%7D %7Bfones%7D%22\n %0A%0A%0A%0A\n",
+            "lines": "52"
+        },
+        {
+            "label": "2025-11-26_23-48-29",
+            "content": "@@ -1598,499 +1598,9 @@\n r %0A%0A\n-    def addFone(self, id: str, number: str):%0A        if not Fone.validar_numero(number):%0A            raise Exception(%22fail: numero invalido%22)%0A        %0A        self.fones.append(Fone(id, number))%0A%0A    def remover_fone(self, index: int):%0A        if self.index in self.fones:%0A            raise Exception (f%22fail: indice %7Bindex%7D ja existe%22)%0A        del %0A        %0A        try:%0A            del self.pessoas%5Bid%5D%0A        except KeyError as _:%0A            raise Exception(f%22fail: Id %7Bid%7D n%C3%A3o existe%22)\n+%0A\n %0A%0A%0A \n",
+            "lines": "62"
+        },
+        {
+            "label": "2025-11-27_00-09-52",
+            "content": "# - Adicionar contato\n#   - O contato possui o nome como chave.\n#   - Se tentar adicionar outro contato com o mesmo nome, adicione os telefones ao contato existente.\n#   - Adicionar os novos n\u00fameros de telefone no contato j\u00e1 existente.\n# - Mostrar\n#   - Mostrar os contatos da agenda pela ordem alfab\u00e9tica.\n# - Remo\u00e7\u00e3o\n#   - Remover contato pela chave.\n#   - Remover telefone do contato.\n# - Busca\n#   - Fazer uma busca por padr\u00e3o em todos os atributos do contato, nome e telefones.\n#   - Se o contato tiver qualquer campo que combine com a string pattern de busca, ele deve ser retornado. Se o pattern \u00e9 maria, devem ser retornados os contatos como \"maria julia\", \"mariana\", \"ana maria\", etc. Tamb\u00e9m inclua na busca o id do telefone ou o n\u00famero do telefone.\n# - Favoritos\n#   - Favoritar e Desfavoritar um contato.\n#   - Mostrar os favoritos.\n# ***\n\nclass Fone: \n    def __init__(self, id: str, number: str):\n        self.id = id \n        self.number = number \n        self.fone = dict[str, Contato] = {}\n    \n    def getId(self):\n        return self.id\n    \n    def getNumber(self):\n        return self.number\n    \n    def validar_numero(self, validos: str) -> bool:\n        validos = \"0123456789\"\n        for c in validos:\n            if c not in validos:\n                return False\n            return True \n    \n    def __str__(self):\n        fones = \", \".join([str(x)for x in enumerate(self.contatos)])\n        return f\"{self.id}:{self.number}\"\n    \n\nclass Contato:\n    def __init__(self):\n        self.favoritos: bool = False \n        self.fones: dict[str, Fone] = {}\n        self.nome: str \n\n    def addFone(self, id: str, number: str):\n        if not Fone.validar_numero(number):\n            raise Exception(\"fail: numero invalido\")\n        \n        self.fones.append(Fone(id, number))\n\n    def remover_fone(self, index: int):\n        if self.index in self.fones:\n            raise Exception (f\"fail: indice {index} ja existe\")\n        del \n        \n        try:\n            del self.pessoas[id]\n        except KeyError as _:\n            raise Exception(f\"fail: Id {id} n\u00e3o existe\")\n\n\n        \n\nclass Agenda:\n    def __init__(self, id: str):\n        self.id = id \n\n    def get_id(self):\n        return self.id \n    \n    def add_contato(self, id: str):\n        if self.id ",
+            "lines": "75"
+        }
+    ]
+}
