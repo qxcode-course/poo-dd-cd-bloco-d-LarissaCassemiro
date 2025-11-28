@@ -27,7 +27,7 @@ class Fone:
     def getNumber(self):
         return self.number
     
-    def validar_numero(self, validos: str) -> bool:
+    def validate(self, validos: str) -> bool:
         validos = "0123456789"
         for c in validos:
             if c not in validos:
@@ -35,7 +35,7 @@ class Fone:
             return True 
     
     def __str__(self):
-        fones = ", ".join([str(x)for x in enumerate(self.contatos)])
+        fones = ", ".join([str(x)for x in enumerate(self.contacts)])
         return f"{self.id}:{self.number}"
     
 
@@ -46,30 +46,112 @@ class Contato:
         self.nome: str 
 
     def addFone(self, id: str, number: str):
-        if not Fone.validar_numero(number):
+        if not Fone.validate(number):
             raise Exception("fail: numero invalido")
-        
-        self.fones.append(Fone(id, number))
+        index = len(self.fones)
+        self.fones[index] = Fone(id, number)
 
-    def remover_fone(self, index: int):
-        if self.index in self.fones:
-            raise Exception (f"fail: indice {index} ja existe")
-        del 
-        
-        try:
-            del self.pessoas[id]
-        except KeyError as _:
-            raise Exception(f"fail: Id {id} não existe")
 
+    def rmFone(self, index: int):
+        if index < 0 or index >= len(self.fones):
+            raise Exception(f"fail: indice invalido")
+        
+        del self.fones[index]
+        self.fones = {i: f for i, f in enumerate(self.fones.values())}
+
+
+    def toogleFavorited(self, favoritos: bool):
+        self.favoritos = not self.favoritos
+
+    def isFavorited(self) -> bool: 
+        return self.favoritos
+    
+    def getFones(self):
+        return list(self.fones.values())
+    
+    def getName(self):
+        return self.nome
+    
+    def setName(self, name: str):
+        self.nome = name 
+
+
+    def __str__(self):
+        prefix = "@" if self.favoritos else "-"
+        lista_fones = ", ".join(f"{fone.id}:{fone.number}" for fone in self.fones.values())
+        return f"{prefix} {self.nome} [{lista_fones}]"
 
         
 
 class Agenda:
-    def __init__(self, id: str):
-        self.id = id 
+    def __init__(self):
+        self.contacts: list[Contato] = []
 
-    def get_id(self):
-        return self.id 
+    def findPosByName(self, name: str) -> int:
+        for i, contato in enumerate (self.contacts):
+            if contato.getName() == name:
+                return i
+            return -1
+        
+
+    def addContact(self, name: str, fones: list):
+        indice = self.findPosByName(name)
+        if indice != -1:
+            contato = self.contacts[indice]
+            for f in fones:
+                if Fone.validate(f.number):
+                    contato.addFone(f.id, f.number)
+                else:
+                    print(f"fail: fone {f.number} invalido")
+            return
+
+        novo = Contato(name)
+
+        for f in fones:
+            if Fone.validate(f.number):
+                novo.addFone(f.id, f.number)
+            else:
+                print(f"fail: fone {f.number} invalido")
+
+        self.contacts.append(novo)
+        self.contacts.sort(key=lambda c: c.getName())
+                
+
+    def getContact(self, name: str) -> Contato | None:
+        indice = self.findPosByName(name)
+        if indice == -1:
+            return None 
+        return self.contacts[indice]
     
-    def add_contato(self, id: str):
-        if self.id 
+    def rmContact(self, name: str):
+        indice = self.findPosByName(name)
+        if indice == -1:
+            raise Exception("fail: contato nao existe")
+        del self.contacts[indice]
+
+    
+        
+
+
+def main():
+    agenda = Agenda
+    while True:
+        line = input()
+        print(f"${line}")
+        args = line.split()
+
+        try:
+            if args[0] == "end":
+                break
+
+            elif args[0] == "add":
+                Fone.add = args([1][2])
+
+
+            else: 
+                print("fail: comando invalido")
+        except Exception as e:
+            print(e)
+
+
+main()

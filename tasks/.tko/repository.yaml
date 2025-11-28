@@ -12,7 +12,7 @@ sources:
   type: clone
   branch: master
   cache_path: ''
-  cache_timestamp: '2025-11-26 23:00:22'
+  cache_timestamp: '2025-11-27 11:32:35'
   filters: null
 expanded:
 - poo@configuracao-e-aquecimento

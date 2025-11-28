@@ -12,8 +12,78 @@
         },
         {
             "label": "2025-11-27_00-09-52",
-            "content": "# - Adicionar contato\n#   - O contato possui o nome como chave.\n#   - Se tentar adicionar outro contato com o mesmo nome, adicione os telefones ao contato existente.\n#   - Adicionar os novos n\u00fameros de telefone no contato j\u00e1 existente.\n# - Mostrar\n#   - Mostrar os contatos da agenda pela ordem alfab\u00e9tica.\n# - Remo\u00e7\u00e3o\n#   - Remover contato pela chave.\n#   - Remover telefone do contato.\n# - Busca\n#   - Fazer uma busca por padr\u00e3o em todos os atributos do contato, nome e telefones.\n#   - Se o contato tiver qualquer campo que combine com a string pattern de busca, ele deve ser retornado. Se o pattern \u00e9 maria, devem ser retornados os contatos como \"maria julia\", \"mariana\", \"ana maria\", etc. Tamb\u00e9m inclua na busca o id do telefone ou o n\u00famero do telefone.\n# - Favoritos\n#   - Favoritar e Desfavoritar um contato.\n#   - Mostrar os favoritos.\n# ***\n\nclass Fone: \n    def __init__(self, id: str, number: str):\n        self.id = id \n        self.number = number \n        self.fone = dict[str, Contato] = {}\n    \n    def getId(self):\n        return self.id\n    \n    def getNumber(self):\n        return self.number\n    \n    def validar_numero(self, validos: str) -> bool:\n        validos = \"0123456789\"\n        for c in validos:\n            if c not in validos:\n                return False\n            return True \n    \n    def __str__(self):\n        fones = \", \".join([str(x)for x in enumerate(self.contatos)])\n        return f\"{self.id}:{self.number}\"\n    \n\nclass Contato:\n    def __init__(self):\n        self.favoritos: bool = False \n        self.fones: dict[str, Fone] = {}\n        self.nome: str \n\n    def addFone(self, id: str, number: str):\n        if not Fone.validar_numero(number):\n            raise Exception(\"fail: numero invalido\")\n        \n        self.fones.append(Fone(id, number))\n\n    def remover_fone(self, index: int):\n        if self.index in self.fones:\n            raise Exception (f\"fail: indice {index} ja existe\")\n        del \n        \n        try:\n            del self.pessoas[id]\n        except KeyError as _:\n            raise Exception(f\"fail: Id {id} n\u00e3o existe\")\n\n\n        \n\nclass Agenda:\n    def __init__(self, id: str):\n        self.id = id \n\n    def get_id(self):\n        return self.id \n    \n    def add_contato(self, id: str):\n        if self.id ",
+            "content": "@@ -1124,18 +1124,24 @@\n f valida\n-te\n+r_numero\n (self, v\n@@ -1665,18 +1665,24 @@\n e.valida\n-te\n+r_numero\n (number)\n@@ -1790,17 +1790,16 @@\n mber))%0A%0A\n-%0A\n     def \n@@ -1803,10 +1803,16 @@\n ef r\n-mF\n+emover_f\n one(\n@@ -1845,34 +1845,22 @@\n  if \n+self.\n index \n-%3E 0 or index %3E= len(\n+in \n self\n@@ -1865,17 +1865,16 @@\n lf.fones\n-)\n :%0A      \n@@ -1894,16 +1894,17 @@\n xception\n+ \n (f%22fail:\n@@ -1915,392 +1915,182 @@\n ice \n+%7B\n in\n-valido%22)%0A        %0A        del self.fones%5Bindex%5D%0A%0A%0A    def toogleFavorited(self, favoritos: bool):%0A        self.favoritos = not self.favoritos%0A%0A    def isFavorited(self): %0A        return self.favoritos\n+dex%7D ja existe%22)%0A        del %0A        %0A        try:%0A            del self.pessoas%5Bid%5D\n %0A    \n-%0A\n     \n-def getFones(self):%0A        return self.fones%0A    %0A    def getName(self):%0A        return self.nome%0A    %0A    def setNome(self, name: str):%0A        self.nome = name %0A%0A     %0A%0A\n+except KeyError as _:%0A            raise Exception(f%22fail: Id %7Bid%7D n%C3%A3o existe%22)\n %0A%0A%0A \n@@ -2278,449 +2278,4 @@\n .id \n-is not None:%0A            print(%22errado%22)%0A%0A%0Adef main():%0A    agenda = Agenda%0A    while True:%0A        line = input()%0A        print(f%22$%22+%7Bline%7D)%0A        args = line.split(%22%22)%0A%0A        try:%0A            if args%5B0%5D == %22end%22:%0A                break%0A%0A            elif args%5B0%5D == %22add%22:%0A                Fone.add = args(%5B1%5D%5B2%5D)%0A%0A%0A            else: %0A                print(%22fail: comando invalido%22)%0A        except Exception as e:%0A            print(e)%0A%0A%0Amain()\n",
             "lines": "75"
+        },
+        {
+            "label": "2025-11-27_12-10-43",
+            "content": "@@ -1745,60 +1745,26 @@\n     \n-index = len(self.fones)%0A        self.fones%5Bindex%5D = \n+self.fones.append(\n Fone\n@@ -1775,16 +1775,17 @@\n  number)\n+)\n %0A%0A%0A    d\n@@ -1834,9 +1834,9 @@\n dex \n-%3C\n+%3E\n  0 o\n@@ -1960,97 +1960,8 @@\n ex%5D%0A\n-        self.fones = %7Bi: fone for i, (_, fone) in enumerate(sorted(self.fones.items()))%7D%0A\n %0A%0A  \n@@ -2287,227 +2287,13 @@\n e %0A%0A\n-%0A    def __str__(self):%0A        prefix = %22@%22 if self.favoritado else %22-%22%0A        lista_fones = %22, %22.join(f%22%7Bfone.id%7D:%7Bfone.number%7D%22 for fone in self.fones.values())%0A        return f%22%7Bprefix%7D %7Bself.nome%7D %5B%7Blista_fones%7D%5D%22\n+     \n %0A%0A%0A%0A\n",
+            "lines": "117"
+        },
+        {
+            "label": "2025-11-27_22-54-26",
+            "content": "@@ -2465,18 +2465,19 @@\n .favorit\n+ad\n o\n-s\n  else %22-\n",
+            "lines": "123"
+        },
+        {
+            "label": "2025-11-27_22-55-19",
+            "content": "@@ -2949,15 +2949,16 @@\n (f%22$\n+%22+\n %7Bline%7D\n-%22\n )%0A  \n",
+            "lines": "123"
+        },
+        {
+            "label": "2025-11-27_22-56-07",
+            "content": "@@ -2980,16 +2980,18 @@\n e.split(\n+%22%22\n )%0A%0A     \n",
+            "lines": "123"
+        },
+        {
+            "label": "2025-11-27_22-56-15",
+            "content": "@@ -1716,32 +1716,41 @@\n mero invalido%22)%0A\n+        %0A\n         index = \n@@ -1765,16 +1765,16 @@\n .fones)%0A\n-\n         \n@@ -2019,16 +2019,19 @@\n i: f\n+one\n  for i, \n f in\n@@ -2026,17 +2026,25 @@\n  for i, \n-f\n+(_, fone)\n  in enum\n@@ -2045,24 +2045,31 @@\n n enumerate(\n+sorted(\n self.fones.v\n@@ -2067,25 +2067,25 @@\n f.fones.\n-value\n+item\n s())\n+)\n %7D%0A%0A%0A    \n@@ -2198,24 +2198,16 @@\n ed(self)\n- -%3E bool\n : %0A     \n@@ -2279,13 +2279,8 @@\n urn \n-list(\n self\n@@ -2281,34 +2281,24 @@\n n self.fones\n-.values())\n %0A    %0A    de\n@@ -2356,17 +2356,17 @@\n def setN\n-a\n+o\n me(self,\n",
+            "lines": "123"
+        },
+        {
+            "label": "2025-11-27_23-09-05",
+            "content": "@@ -2621,16 +2621,19 @@\n nes%7D%5D%22%0A%0A\n+%0A%0A%0A\n         \n@@ -2673,244 +2673,41 @@\n self\n-):%0A        self.contacts: list%5BContato%5D = %5B%5D%0A%0A    def findPosByName(self, name: str) -%3E int:%0A        for i, contato in enumerate (self.contacts):%0A            if contato.getName() == name:%0A                return i%0A            return -1%0A%0A\n+, id: str):%0A        self.id = id \n %0A%0A  \n",
+            "lines": "122"
+        },
+        {
+            "label": "2025-11-27_23-18-20",
+            "content": "@@ -2905,77 +2905,8 @@\n  -1%0A\n-        %0A    def addContact(self, name: str, fones: list):%0A        %0A%0A\n %0A%0A%0A \n",
+            "lines": "127"
+        },
+        {
+            "label": "2025-11-27_23-21-20",
+            "content": "@@ -2901,16 +2901,25 @@\n turn -1%0A\n+        %0A\n     def \n@@ -2943,10 +2943,38 @@\n name\n- )\n+: str, fones: list):%0A        %0A\n %0A%0A%0A%0A\n",
+            "lines": "131"
+        },
+        {
+            "label": "2025-11-27_23-21-40",
+            "content": "@@ -2908,20 +2908,8 @@\n %0A   \n-     %0A%0A    #\n  def\n@@ -2920,18 +2920,28 @@\n Contact(\n+self, name \n )\n-:\n %0A%0A%0A%0A    \n",
+            "lines": "128"
+        },
+        {
+            "label": "2025-11-27_23-22-00",
+            "content": "@@ -1390,18 +1390,18 @@\n lf.conta\n-c\n t\n+o\n s)%5D)%0A   \n@@ -2919,713 +2919,27 @@\n     \n-def addContact(self, name: str, fones: list):%0A        indice = self.findPosByName(name)%0A        if indice != -1:%0A            contato = self.contacts%5Bindice%5D%0A            for f in fones:%0A                if Fone.validate(f.number):%0A                    contato.addFone(f.id, f.number)%0A                else:%0A                    print(f%22fail: fone %7Bf.number%7D invalido%22)%0A            return%0A%0A        novo = Contato(name)%0A%0A        for f in fones:%0A            if Fone.validate(f.number):%0A                novo.addFone(f.id, f.number)%0A            else:%0A                print(f%22fail: fone %7Bf.number%7D invalido%22)%0A%0A        self.contacts.append(novo)%0A        self.contacts.sort(key=lambda c: c.getName())%0A                %0A\n+# def addContact():\n %0A%0A%0A%0A\n",
+            "lines": "130"
+        },
+        {
+            "label": "2025-11-27_23-45-08",
+            "content": "@@ -3613,32 +3613,35 @@\n               %0A%0A\n+%0A%0A%0A\n     def getConta\n@@ -3639,182 +3639,143 @@\n  get\n-Contact(self, name: str) -%3E Contato %7C None:%0A        indice = self.findPosByName(name)\n+_id(self):%0A        return self.id \n %0A    \n+%0A\n     \n-if indice == -1:%0A            return None %0A        return self.contacts%5Bindice%5D%0A%0A\n+def add_contato(self, id: str):%0A        if self.id is not None:%0A            print(%22errado%22)\n %0A%0A%0Ad\n",
+            "lines": "152"
+        },
+        {
+            "label": "2025-11-27_23-51-40",
+            "content": "@@ -3809,214 +3809,9 @@\n ce%5D%0A\n-    %0A    def rmContact(self, name: str):%0A        indice = self.findPosByName(name)%0A        if indice == -1:%0A            raise Exception(%22fail: contato nao existe%22)%0A        del self.contacts%5Bindice%5D%0A        \n+%0A\n %0A%0A%0Ad\n",
+            "lines": "150"
+        },
+        {
+            "label": "2025-11-27_23-58-38",
+            "content": "@@ -4002,22 +4002,16 @@\n %5Bindice%5D\n-%0A%0A    \n %0A       \n",
+            "lines": "155"
+        },
+        {
+            "label": "2025-11-28_00-00-04",
+            "content": "# - Adicionar contato\n#   - O contato possui o nome como chave.\n#   - Se tentar adicionar outro contato com o mesmo nome, adicione os telefones ao contato existente.\n#   - Adicionar os novos n\u00fameros de telefone no contato j\u00e1 existente.\n# - Mostrar\n#   - Mostrar os contatos da agenda pela ordem alfab\u00e9tica.\n# - Remo\u00e7\u00e3o\n#   - Remover contato pela chave.\n#   - Remover telefone do contato.\n# - Busca\n#   - Fazer uma busca por padr\u00e3o em todos os atributos do contato, nome e telefones.\n#   - Se o contato tiver qualquer campo que combine com a string pattern de busca, ele deve ser retornado. Se o pattern \u00e9 maria, devem ser retornados os contatos como \"maria julia\", \"mariana\", \"ana maria\", etc. Tamb\u00e9m inclua na busca o id do telefone ou o n\u00famero do telefone.\n# - Favoritos\n#   - Favoritar e Desfavoritar um contato.\n#   - Mostrar os favoritos.\n# ***\n\nclass Fone: \n    def __init__(self, id: str, number: str):\n        self.id = id \n        self.number = number \n        self.fone = dict[str, Contato] = {}\n    \n    def getId(self):\n        return self.id\n    \n    def getNumber(self):\n        return self.number\n    \n    def validate(self, validos: str) -> bool:\n        validos = \"0123456789\"\n        for c in validos:\n            if c not in validos:\n                return False\n            return True \n    \n    def __str__(self):\n        fones = \", \".join([str(x)for x in enumerate(self.contacts)])\n        return f\"{self.id}:{self.number}\"\n    \n\nclass Contato:\n    def __init__(self):\n        self.favoritos: bool = False \n        self.fones: dict[str, Fone] = {}\n        self.nome: str \n\n    def addFone(self, id: str, number: str):\n        if not Fone.validate(number):\n            raise Exception(\"fail: numero invalido\")\n        index = len(self.fones)\n        self.fones[index] = Fone(id, number)\n\n\n    def rmFone(self, index: int):\n        if index < 0 or index >= len(self.fones):\n            raise Exception(f\"fail: indice invalido\")\n        \n        del self.fones[index]\n        self.fones = {i: f for i, f in enumerate(self.fones.values())}\n\n\n    def toogleFavorited(self, favoritos: bool):\n        self.favoritos = not self.favoritos\n\n    def isFavorited(self) -> bool: \n        return self.favoritos\n    \n    def getFones(self):\n        return list(self.fones.values())\n    \n    def getName(self):\n        return self.nome\n    \n    def setName(self, name: str):\n        self.nome = name \n\n\n    def __str__(self):\n        prefix = \"@\" if self.favoritos else \"-\"\n        lista_fones = \", \".join(f\"{fone.id}:{fone.number}\" for fone in self.fones.values())\n        return f\"{prefix} {self.nome} [{lista_fones}]\"\n\n        \n\nclass Agenda:\n    def __init__(self):\n        self.contacts: list[Contato] = []\n\n    def findPosByName(self, name: str) -> int:\n        for i, contato in enumerate (self.contacts):\n            if contato.getName() == name:\n                return i\n            return -1\n        \n\n    def addContact(self, name: str, fones: list):\n        indice = self.findPosByName(name)\n        if indice != -1:\n            contato = self.contacts[indice]\n            for f in fones:\n                if Fone.validate(f.number):\n                    contato.addFone(f.id, f.number)\n                else:\n                    print(f\"fail: fone {f.number} invalido\")\n            return\n\n        novo = Contato(name)\n\n        for f in fones:\n            if Fone.validate(f.number):\n                novo.addFone(f.id, f.number)\n            else:\n                print(f\"fail: fone {f.number} invalido\")\n\n        self.contacts.append(novo)\n        self.contacts.sort(key=lambda c: c.getName())\n                \n\n    def getContact(self, name: str) -> Contato | None:\n        indice = self.findPosByName(name)\n        if indice == -1:\n            return None \n        return self.contacts[indice]\n    \n    def rmContact(self, name: str):\n        indice = self.findPosByName(name)\n        if indice == -1:\n            raise Exception(\"fail: contato nao existe\")\n        del self.contacts[indice]\n\n    \n        \n\n\ndef main():\n    agenda = Agenda\n    while True:\n        line = input()\n        print(f\"${line}\")\n        args = line.split()\n\n        try:\n            if args[0] == \"end\":\n                break\n\n            elif args[0] == \"add\":\n                Fone.add = args([1][2])\n\n\n            else: \n                print(\"fail: comando invalido\")\n        except Exception as e:\n            print(e)\n\n\nmain()",
+            "lines": "157"
         }
     ]
 }
