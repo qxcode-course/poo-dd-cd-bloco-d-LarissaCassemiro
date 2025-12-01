@@ -1,0 +1,14 @@
+{
+    "patches": [
+        {
+            "label": "2025-12-01_16-52-04",
+            "content": "@@ -1,40 +1,4 @@\n-from abc import ABC, abstractmethod%0A\n %0Acla\n@@ -66,24 +66,35 @@\n        self.\n+apresentar_\n nome = nome \n@@ -99,89 +99,8 @@\n e %0A%0A\n-    def apresentar_nome(self, nome: str): %0A        print(f%22eu sou %7Bself.nome%7D%22)%0A%0A\n     \n@@ -152,24 +152,16 @@\n ne:%0A    \n-    pass\n %0A    @ab\n@@ -201,29 +201,16 @@\n -%3E None:\n-%0A        pass\n %0A%0A    %0Ad\n@@ -443,630 +443,40 @@\n     \n-print(%22graaaam%22)%0A    def mover(self):%0A        print(%22caminhando em silencio%22)%0A%0A    def apresentar_nome(self, nome):%0A        pass%0A%0Aclass Elefante(Animal):%0A    def __init__(self, nome: str)-%3E None:%0A        super().__init__(nome)%0A%0A    def fazer_som(self):%0A        print(%22fuuuur%22)%0A    def mover(self):%0A        print(%22passos macios%22)%0A%0A    def apresentar_nome(self, nome):%0A        pass%0A%0A%0Aclass Cobra(Animal):%0A    def __init__(self, nome: str)-%3E None:%0A        super().__init__(nome)%0A%0A    def fazer_som(self):%0A        print(%22sssss%22)%0A    def mover(self):%0A        print(%22rastejaaando%22)%0A%0A    def apresentar_nome(self, nome):%0A        pass\n+return super().fazer_som()%0A%0A        \n",
+            "lines": "25"
+        },
+        {
+            "label": "2025-12-01_17-06-58",
+            "content": "from abc import ABC, abstractmethod\n\nclass Animal (ABC):\n    def __init__(self, nome: str) -> None:\n        self.nome = nome \n\n    def apresentar_nome(self, nome: str): \n        print(f\"eu sou {self.nome}\")\n\n    @abstractmethod\n    def fazer_som(self) -> None:\n        pass\n    @abstractmethod\n    def mover(self) -> None:\n        pass\n\n    \ndef apresentar(animal: Animal):\n    animal.fazer_som()\n    animal.mover()\n    animal.apresentar_nome()\n\nclass Leao(Animal):\n    def __init__(self, nome: str)-> None:\n        super().__init__(nome)\n\n    def fazer_som(self):\n        print(\"graaaam\")\n    def mover(self):\n        print(\"caminhando em silencio\")\n\n    def apresentar_nome(self, nome):\n        pass\n\nclass Elefante(Animal):\n    def __init__(self, nome: str)-> None:\n        super().__init__(nome)\n\n    def fazer_som(self):\n        print(\"fuuuur\")\n    def mover(self):\n        print(\"passos macios\")\n\n    def apresentar_nome(self, nome):\n        pass\n\n\nclass Cobra(Animal):\n    def __init__(self, nome: str)-> None:\n        super().__init__(nome)\n\n    def fazer_som(self):\n        print(\"sssss\")\n    def mover(self):\n        print(\"rastejaaando\")\n\n    def apresentar_nome(self, nome):\n        pass",
+            "lines": "58"
+        }
+    ]
+}

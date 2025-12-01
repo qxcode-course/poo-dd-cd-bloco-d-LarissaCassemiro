@@ -129,7 +129,8 @@ class Agenda:
             raise Exception("fail: contato nao existe")
         del self.contacts[indice]
 
-    
+    def search(self, contatos: list):
+        
         
 
 
