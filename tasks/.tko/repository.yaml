@@ -12,12 +12,13 @@ sources:
   type: clone
   branch: master
   cache_path: ''
-  cache_timestamp: '2025-12-01 15:54:00'
+  cache_timestamp: '2025-12-02 15:57:08'
   filters: null
 expanded:
 - poo@campanha-principal
 - poo@bloco_d-crud-com-mapas-e-enumerações
-tasks: {}
+tasks:
+  poo@zoo: '{human:sim__monitor_, iagen:nao_, guide:sim__aula_, other:nao, study:90}'
 flags:
   quests: 0
   tracks: 0
